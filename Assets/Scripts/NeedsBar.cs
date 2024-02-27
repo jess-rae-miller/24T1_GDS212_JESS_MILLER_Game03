@@ -37,6 +37,7 @@ public class NeedsBar : MonoBehaviour
     [SerializeField] private Image petSad;
 
     [Header("Sound Settings")]
+
     public AudioClip playSound;
     private AudioSource audioSource;
 
@@ -63,13 +64,14 @@ public class NeedsBar : MonoBehaviour
 
     private void Awake()
     {
-        // Initialize the audio source component
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = playSound;
     }
 
     private void Update()
     {
+        // hunger 0.8f, thirsty 1f, tired 0.3f, bored 0.7f
+
         happiness -= 5.5f * Time.deltaTime;
         if (happiness < 0)
         {
@@ -174,7 +176,6 @@ public class NeedsBar : MonoBehaviour
         bored = Mathf.Min(bored + 20, max);
         UpdateBar(bored, currentBored);
 
-        // Play the sound
         if (playSound != null && audioSource != null)
         {
             audioSource.Play();
