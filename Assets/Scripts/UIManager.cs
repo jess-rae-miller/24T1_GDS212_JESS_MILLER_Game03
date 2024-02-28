@@ -8,24 +8,39 @@ public class UIManager : MonoBehaviour
     [SerializeField] private InventorySystem inventorySystem;
     [SerializeField] private NeedsBar needsBar;
 
-    [Header("Buttons")]
-    [SerializeField] private Button feedButton;
-    [SerializeField] private Button waterButton;
-    [SerializeField] private Button playButton;
+    [Header("Adventure UI Elements")]
+    [SerializeField] private TextMeshProUGUI adventureResultText;
+    [SerializeField] private GameObject adventurePopup;
 
-    [Header("Texts")]
+    [Header("Inventory UI Elements")]
     [SerializeField] private TextMeshProUGUI foodCountText;
     [SerializeField] private TextMeshProUGUI waterCountText;
     [SerializeField] private TextMeshProUGUI toyCountText;
+    [SerializeField] private TextMeshProUGUI rareItemCountText; // New UI element for rare items
 
+    [Header("Buttons")]
+    [SerializeField] private Button startAdventureButton;
+    [SerializeField] private Button feedButton; 
+    [SerializeField] private Button waterButton;
+    [SerializeField] private Button playButton;
     private void Start()
     {
-        feedButton.onClick.AddListener(OnFeedButtonClick);
-        waterButton.onClick.AddListener(OnWaterButtonClick);
-        playButton.onClick.AddListener(OnPlayButtonClick);
+        startAdventureButton.onClick.AddListener(StartAdventure);
 
-        UpdateButtonInteractivity();
         UpdateInventoryCounts();
+        adventurePopup.SetActive(false); // Initially hide the adventure result popup
+    }
+
+    public void StartAdventure()
+    {
+        // Assuming AdventureSystem is attached to the same GameObject
+        GetComponent<AdventureSystem>().StartAdventure();
+    }
+
+    public void UpdateAdventureUI(AdventureResult result)
+    {
+        adventureResultText.text = $"Adventure Complete!\nCoins: {result.Coins}\nFood: {result.Food}\nWater: {result.Water}\nToys: {result.Toys}\nRare Items: {result.RareItems}";
+        adventurePopup.SetActive(true);
     }
 
     public void UpdateInventoryCounts()
@@ -33,6 +48,7 @@ public class UIManager : MonoBehaviour
         foodCountText.text = "Food: " + inventorySystem.GetItemCount("food").ToString();
         waterCountText.text = "Water: " + inventorySystem.GetItemCount("water").ToString();
         toyCountText.text = "Toys: " + inventorySystem.GetItemCount("toy").ToString();
+        rareItemCountText.text = "Rare Items: " + inventorySystem.GetItemCount("rare").ToString(); // Update rare item count
     }
 
     private void OnFeedButtonClick()
