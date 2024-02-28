@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 245741321593801431}
   - component: {fileID: 7690002488933652165}
   - component: {fileID: 8756095605398631962}
-  - component: {fileID: 1887312478889827726}
   m_Layer: 5
   m_Name: FeedButton
   m_TagString: Untagged
@@ -134,37 +133,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1887312478889827726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 573990789334383447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aacdcbf2136c2414d8efe8ff91da3e55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  happiness: 100
-  hunger: 100
-  thirsty: 100
-  tired: 100
-  bored: 100
-  max: 100
-  currentHungry: {fileID: 0}
-  currentThirsty: {fileID: 0}
-  currentTired: {fileID: 0}
-  currentBored: {fileID: 0}
-  foodBubble: {fileID: 0}
-  waterBubble: {fileID: 0}
-  bedBubble: {fileID: 0}
-  toyBubble: {fileID: 0}
-  petHappy: {fileID: 0}
-  petSad: {fileID: 0}
-  ResetButton: {fileID: 0}
-  DeathSequenceCanvas: {fileID: 0}
-  GameOverText: {fileID: 0}
 --- !u!1 &6535553275665730169
 GameObject:
   m_ObjectHideFlags: 0
