@@ -18,31 +18,27 @@ public class NeedsBar : MonoBehaviour
     public float max = 100;
 
     [Header("Needs Bars")]
-
     [SerializeField] private Image currentHungry;
     [SerializeField] private Image currentThirsty;
     [SerializeField] private Image currentTired;
     [SerializeField] private Image currentBored;
 
     [Header("Needs Bubbles")]
-
     [SerializeField] private Image foodBubble;
     [SerializeField] private Image waterBubble;
     [SerializeField] private Image bedBubble;
     [SerializeField] private Image toyBubble;
 
     [Header("Pet Happiness Display")]
-
     [SerializeField] private Image petHappy;
     [SerializeField] private Image petSad;
+    [SerializeField] private Image petDying;
 
     [Header("Sound Settings")]
-
     public AudioClip playSound;
     private AudioSource audioSource;
 
     [Header("Death Sequence")]
-
     [SerializeField] private Button ResetButton;
     [SerializeField] private Canvas DeathSequenceCanvas;
     [SerializeField] TextMeshProUGUI GameOverText;
@@ -70,40 +66,22 @@ public class NeedsBar : MonoBehaviour
 
     private void Update()
     {
-        // hunger 0.8f, thirsty 1f, tired 0.3f, bored 0.7f
+        // Adjust the rate of decrease for hunger, thirsty, tired, and bored
+        hunger -= 0.8f * Time.deltaTime;
+        thirsty -= 1f * Time.deltaTime;
+        tired -= 0.3f * Time.deltaTime;
+        bored -= 0.7f * Time.deltaTime;
 
-        happiness -= 5.5f * Time.deltaTime;
-        if (happiness < 0)
-        {
-            happiness = 0;
-        }
+        // Ensure the values don't drop below 0
+        hunger = Mathf.Max(hunger, 0);
+        thirsty = Mathf.Max(thirsty, 0);
+        tired = Mathf.Max(tired, 0);
+        bored = Mathf.Max(bored, 0);
 
-        hunger -= 5.5f * Time.deltaTime;
-        if (hunger < 0)
-        {
-            hunger = 0;
-        }
-
-        thirsty -= 5.5f * Time.deltaTime;
-        if (thirsty < 0)
-        {
-            thirsty = 0;
-        }
-
-        tired -= 5.5f * Time.deltaTime;
-        if (tired < 0)
-        {
-            tired = 0;
-        }
-
-        bored -= 5.5f * Time.deltaTime;
-        if (bored < 0)
-        {
-            bored = 0;
-        }
+        // Calculate happiness based on the average of the four needs
+        happiness = (hunger + thirsty + tired + bored) / 4;
 
         UpdateAllBars();
-
         NeedsCheck();
     }
 
@@ -171,30 +149,37 @@ public class NeedsBar : MonoBehaviour
         tired = Mathf.Min(tired + 20, max);
         UpdateBar(tired, currentTired);
     }
+
     public void PlayWithThePet()
     {
         bored = Mathf.Min(bored + 20, max);
         UpdateBar(bored, currentBored);
-
-        if (playSound != null && audioSource != null)
-        {
-            audioSource.Play();
-        }
     }
 
     private void GoodOwnerCheck()
     {
-        if (hunger <= 50 || thirsty <= 60 || tired <= 20 || bored <= 40)
+        // First, check for the most critical condition
+        if (hunger <= 20 || thirsty <= 20 || tired <= 20 || bored <= 20)
         {
+            // If any condition for dying is met, only show the dying image
             petHappy.gameObject.SetActive(false);
+            petSad.gameObject.SetActive(false);
+            petDying.gameObject.SetActive(true);
+        }
+        else if (hunger <= 50 || thirsty <= 50 || tired <= 50 || bored <= 50)
+        {
+            // If conditions for being sad are met (and not dying), show only the sad image
+            petHappy.gameObject.SetActive(false);
+            petDying.gameObject.SetActive(false); // Ensure dying is not shown
             petSad.gameObject.SetActive(true);
         }
         else
         {
+            // If none of the above conditions are met, the pet is happy
             petSad.gameObject.SetActive(false);
+            petDying.gameObject.SetActive(false); // Ensure dying is not shown
             petHappy.gameObject.SetActive(true);
         }
-
     }
 
     private void UpdateAllBars()
