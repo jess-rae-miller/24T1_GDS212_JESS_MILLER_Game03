@@ -68,8 +68,8 @@ public class NeedsBar : MonoBehaviour
     private void Update()
     {
         // Adjust the rate of decrease for hunger, thirsty, tired, and bored
-        hunger -= 0.8f * Time.deltaTime;
-        thirsty -= 1f * Time.deltaTime;
+        hunger -= 1.3f * Time.deltaTime;
+        thirsty -= 2f * Time.deltaTime;
         tired -= 0.3f * Time.deltaTime;
         bored -= 0.7f * Time.deltaTime;
 
@@ -135,13 +135,13 @@ public class NeedsBar : MonoBehaviour
 
     public void FeedThePet()
     {
-        hunger = Mathf.Min(hunger + 20, max);
+        hunger = Mathf.Min(hunger + 5, max);
         UpdateBar(hunger, currentHungry);
     }
 
     public void WaterThePet()
     {
-        thirsty = Mathf.Min(thirsty + 20, max);
+        thirsty = Mathf.Min(thirsty + 5, max);
         UpdateBar(thirsty, currentThirsty);
     }
 
@@ -211,7 +211,7 @@ public class NeedsBar : MonoBehaviour
 
     private void GameOver()
     {
-        if (hunger <= 0 || thirsty < 0 || tired <= 0 || bored <= 0)
+        if (hunger <= 0 || thirsty <= 0 || tired <= 0 || bored <= 0)
         {
             if (DeathSequenceCanvas != null)
                 DeathSequenceCanvas.gameObject.SetActive(true);
