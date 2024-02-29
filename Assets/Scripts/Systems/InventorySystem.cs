@@ -21,12 +21,13 @@ public class InventorySystem : MonoBehaviour
     }
 
     // Method to add items to the inventory
-    public void AddItem(string itemType)
+    public void AddItem(string itemType, int quantity)
     {
-        if (inventory.ContainsKey(itemType))
+        if (!inventory.ContainsKey(itemType))
         {
-            inventory[itemType]++;
+            inventory[itemType] = 0;
         }
+        inventory[itemType] += quantity;
     }
 
     // Method to check if the player has at least one item of the given type
