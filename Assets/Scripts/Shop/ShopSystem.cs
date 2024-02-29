@@ -23,7 +23,7 @@ public class ShopSystem : MonoBehaviour
 
     private void PurchaseItem(string itemType)
     {
-        if (currencyManager.SpendCoins(10)) // Assume each item costs 10 coins
+        if (currencyManager.SpendCoins(30)) // Assume each item costs 10 coins
         {
             // Update the call to AddItem to include the quantity parameter
             inventorySystem.AddItem(itemType, 1); // Now passing 1 as the quantity

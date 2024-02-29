@@ -71,7 +71,7 @@ public class QuestManager : MonoBehaviour
         resultText.text = "Quest in progress..."; // Provide immediate feedback that quest has started.
 
         // Simulate quest time.
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(5);
 
         // Generate rewards.
         int coinsCollected = Random.Range(30, 251); // Ensure inclusive range for Random.
@@ -86,7 +86,7 @@ public class QuestManager : MonoBehaviour
         inventorySystem.AddItem("toy", toysCollected);
 
         // Display results.
-        resultText.text = $"Quest Complete! Collected: {coinsCollected} coins, {foodCollected} food, {waterCollected} water, {toysCollected} toys.";
+        resultText.text = $"Quest Complete! Collected: \n{coinsCollected} coins, \n{foodCollected} food, \n{waterCollected} water, \n{toysCollected} toys.";
         QuestCompleted();
     }
     public void QuestCompleted()
