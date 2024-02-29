@@ -4,7 +4,7 @@ using TMPro;
 public class CurrencyManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI coinsText;
-    [SerializeField] private int currentCoins = 1000;
+    [SerializeField] private int currentCoins = 100;
 
     private void Start()
     {

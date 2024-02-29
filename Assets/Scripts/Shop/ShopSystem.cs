@@ -25,7 +25,8 @@ public class ShopSystem : MonoBehaviour
     {
         if (currencyManager.SpendCoins(10)) // Assume each item costs 10 coins
         {
-            inventorySystem.AddItem(itemType);
+            // Update the call to AddItem to include the quantity parameter
+            inventorySystem.AddItem(itemType, 1); // Now passing 1 as the quantity
             uiManager.UpdateButtonInteractivity();
             uiManager.UpdateInventoryCounts();
         }
@@ -34,5 +35,4 @@ public class ShopSystem : MonoBehaviour
             Debug.Log("Not enough coins to purchase.");
         }
     }
-
 }

@@ -30,6 +30,7 @@ public class NeedsBar : MonoBehaviour
     [SerializeField] private Image toyBubble;
 
     [Header("Pet Happiness Display")]
+    [SerializeField] private Image petVeryHappy;
     [SerializeField] private Image petHappy;
     [SerializeField] private Image petSad;
     [SerializeField] private Image petDying;
@@ -158,12 +159,13 @@ public class NeedsBar : MonoBehaviour
 
     private void GoodOwnerCheck()
     {
-        // First, check for the most critical condition
+        // Check for the most critical condition first
         if (hunger <= 20 || thirsty <= 20 || tired <= 20 || bored <= 20)
         {
             // If any condition for dying is met, only show the dying image
             petHappy.gameObject.SetActive(false);
             petSad.gameObject.SetActive(false);
+            petVeryHappy.gameObject.SetActive(false); // Ensure very happy is not shown
             petDying.gameObject.SetActive(true);
         }
         else if (hunger <= 50 || thirsty <= 50 || tired <= 50 || bored <= 50)
@@ -171,13 +173,23 @@ public class NeedsBar : MonoBehaviour
             // If conditions for being sad are met (and not dying), show only the sad image
             petHappy.gameObject.SetActive(false);
             petDying.gameObject.SetActive(false); // Ensure dying is not shown
+            petVeryHappy.gameObject.SetActive(false); // Ensure very happy is not shown
             petSad.gameObject.SetActive(true);
+        }
+        else if (happiness > 75)
+        {
+            // New condition for very happy
+            petHappy.gameObject.SetActive(false);
+            petSad.gameObject.SetActive(false);
+            petDying.gameObject.SetActive(false); // Ensure dying is not shown
+            petVeryHappy.gameObject.SetActive(true); // Show very happy image
         }
         else
         {
             // If none of the above conditions are met, the pet is happy
             petSad.gameObject.SetActive(false);
             petDying.gameObject.SetActive(false); // Ensure dying is not shown
+            petVeryHappy.gameObject.SetActive(false); // Ensure very happy is not shown
             petHappy.gameObject.SetActive(true);
         }
     }
