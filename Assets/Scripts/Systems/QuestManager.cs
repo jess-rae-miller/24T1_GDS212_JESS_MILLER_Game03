@@ -91,6 +91,7 @@ public class QuestManager : MonoBehaviour
     }
     public void QuestCompleted()
     {
+        Debug.Log("questcomplete");
         completionButton.gameObject.SetActive(true);
         questButton.interactable = true;
         uiManager.UpdateInventoryCounts();
